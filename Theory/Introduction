@@ -1,0 +1,110 @@
+Compiler VS Interpreter
+- Compiler แปลทีละบรรทัดเเล้วเก็บไว้ที่ excusable file เเล้วค่อย run
+- Interpreter แปลทีละบรรทัดเเล้ว run เลย
+
+🔹 Static Type Binding
+-Type is determined at compile time.
+-The type cannot change after binding.
+-Found in languages like C, Java, C++.
+
+🔹 Dynamic Type Binding
+-Type is determined at runtime (when the program runs).
+-The type can change as the program executes.
+-Found in Python, JavaScript.
+
+JSON = Javascript Object Notation
+It’s a lightweight data format used to store and exchange information between systems.
+examples
+{
+  "name": "Bank",
+  "age": 21,
+  "skills": ["Python", "JavaScript", "SQL"]
+}
+
+Web Apps is Web + App
+
+WWW Communication that is Client --> Server
+- main way communicate of client is Browser for communicate with server (has Web Server)
+1. First Client send REQUEST to Server (in request have 1.header , 2.body)
+2. Server read REQUEST (In major document is html)
+3. Server has document that will return file (Http Response) but if server have not file. it will be return status code 404
+Http protocol use in layer 3 (Application layer)
+
+| Component        | Description                                         |
+| ---------------- | --------------------------------------------------- |
+| 🧑‍💻 **Client**    | Your device/browser (e.g., Chrome, Edge, Firefox)   |
+| 🖥️ **Server**    | The computer that stores the website or web app     |
+| 🌍 **Internet**  | The network that connects the client and server     |
+| 📡 **Protocol**  | Rules that define how they communicate (HTTP/HTTPS) |
+
+🌐 What is a Web Application?
+A Web Application (or WebApp) is a software program that runs on a web server
+and is accessed through a web browser over the Internet (or an intranet).
+
++-------------+        HTTP/HTTPS        +---------------+
+|  Web Client | <----------------------> |   Web Server  |
+| (Browser)   |                         | (Backend Code) |
++-------------+                         +-------+-------+
+                                               |
+                                               v
+                                        +-------------+
+                                        |  Database   |
+                                        +-------------+
+🌐 What is a Web Service?
+A Web Service is a software system that allows two or more applications to communicate with each other
+over the Internet using standard web protocols (like HTTP, XML, or JSON).
+
+🧠 Simple Definition
+Web Service = Application-to-Application Communication via the Web
+
+| Type                                       | Description                            | Data Format   | Protocol   | Example                                  |
+| ------------------------------------------ | -------------------------------------- | ------------- | ---------- | ---------------------------------------- |
+| **SOAP (Simple Object Access Protocol)**   | Older, standardized, uses XML messages | XML           | HTTP, SMTP | Banking systems, enterprise apps         |
+| **REST (Representational State Transfer)** | Modern, lightweight, uses URLs + JSON  | JSON (or XML) | HTTP       | Most modern APIs (Twitter, Google, etc.) |
+
+For Example:
+Amazon want Data Logistic for send to customer Amazon (About tracking product)
+Amazon ---(RESTFUL API)--> Logistic ---> Data Logistic
+webApp ---> webApp
+
+🌐 What is REST API?
+REST (Representational State Transfer) is an architectural style used for building web services
+that allow communication between a client (like a web app or mobile app) and a server over the HTTP protocol.
+A REST API (RESTful API) is a web service that follows REST principles to let applications exchange data easily and efficiently.
+
+-Statelessness : No client context is stored on the server.
+(Backend Manage in traditional because We have many different user use Web but each person have different state
+for example : Bob login , Alice use without login this is state | backend must store memory state in server)
+(Now frontend will manage --> session storage (if backend use REST))
+
+-Resource Representation: format like JSON or XML
+/customer , /product each resource will support CRUD
+
+-Uniform Interface: Standardlized HTTP methode
+
+-Layered System: if dont have good manage.it will be 'Boiler Page Code' (redundancy code)
+    -controller --> receive REQUEST (make validation) [Presentation Layer]
+    -Service --> Business Process (manipulate condition) [Business Logic Layer]
+    -Repository --> recall Database (make ORM(Object Relational Mapping) --> Change Relational to Object) [Persistence Layer] --use prisma tool
+
+
+🧩 HTTP Methods in REST API
+| Method     | Description            | Example                                |
+| ---------- | ---------------------- | -------------------------------------- |
+| **GET**    | Retrieve data          | `/users` → get list of users           |
+| **POST**   | Create new data        | `/users` → create a new user           |
+| **PUT**    | Update data completely | `/users/10` → replace user with ID 10  |
+| **PATCH**  | Update partially       | `/users/10` → change part of user data |
+| **DELETE** | Delete data            | `/users/10` → delete user with ID 10   |
+
+⚙️ Overview GET VS POST
+| Feature           | **GET**                                      | **POST**                                            |
+| ----------------- | -------------------------------------------- | --------------------------------------------------- |
+| **Purpose**       | Retrieve data from the server                | Send data to the server (create or update)          |
+| **Data Location** | Data is sent in the **URL** (query string)   | Data is sent in the **request body**                |
+| **Example URL**   | `https://api.example.com/users?id=10`        | `https://api.example.com/users`                     |
+| **Visibility**    | Visible in the URL (less secure)             | Hidden in body (more secure)                        |
+| **Caching**       | Can be cached by browsers                    | Usually not cached                                  |
+| **Idempotent**    | ✅ Yes (same request = same result)          | ⚠️ Not necessarily (can create new data each time)  |
+| **Use Case**      | Get info (e.g., fetch users, products, etc.) | Create or update info (e.g., register, submit form) |
+
