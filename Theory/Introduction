@@ -41,15 +41,19 @@ Http protocol use in layer 3 (Application layer)
 A Web Application (or WebApp) is a software program that runs on a web server
 and is accessed through a web browser over the Internet (or an intranet).
 
-+-------------+        HTTP/HTTPS        +---------------+
-|  Web Client | <----------------------> |   Web Server  |
-| (Browser)   |                         | (Backend Code) |
-+-------------+                         +-------+-------+
-                                               |
-                                               v
-                                        +-------------+
-                                        |  Database   |
-                                        +-------------+
++-------------+        HTTP/HTTPS        +----------------+                  +---------------------+
+|  Web Client | <----------------------> |   Web Server   | ---------------->| Application Server  |
+| (Browser)   |                          | (Backend Code) |                  | (Backend Code)      |
++-------------+                          +-------+-------+                   +---------+-----------+
+                                                                                       |
+                                                                                       v
+                                                                                +-------------+
+                                                                                |  Database   |
+                                                                                +-------------+
+
+
+Application Server Recall My App (JS)
+
 🌐 What is a Web Service?
 A Web Service is a software system that allows two or more applications to communicate with each other
 over the Internet using standard web protocols (like HTTP, XML, or JSON).
