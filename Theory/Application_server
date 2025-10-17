@@ -1,0 +1,20 @@
+HTTP Status Codes
+• 1xx: Informational
+• 2xx: Success (200 OK, 201 Created)
+• 3xx: Redirection (301, 302)
+• 4xx: Client Error (400, 404)
+• 5xx: Server Error (500)
+
+WHATWG URL refers to the URL standard defined by the WHATWG (Web Hypertext Application Technology Working Group)
+it’s the official specification used by all modern browsers and environments (like Node.js) to handle URLs consistently.
+
+Basically:
+👉 It’s how browsers and JavaScript understand, parse, and manipulate URLs.
+
+example GET: http://localhost:3000/?name=bank&favourite_subject=INT100&favourite_subject=INT400
+[send request from head]
+
+const url = new URL("https://example.com/?name=alice&age=25");
+console.log(url.searchParams.get("name")); // "alice"
+url.searchParams.set("age", "26");
+console.log(url.toString()); // "https://example.com/?name=alice&age=26"
