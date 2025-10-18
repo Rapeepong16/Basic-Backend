@@ -57,7 +57,7 @@ module.exports = {
         return updated;
     },
     removeSubject: async function (id) {
-        const removed = await repo.deleteById(id);
+        const removed = await repo.delete(id);
         if (!removed) {
             const err = new Error(`Subject not found for ID ${id}`);
             err.status = 404;

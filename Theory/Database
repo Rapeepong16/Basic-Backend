@@ -18,3 +18,21 @@ Because when close connection that make trash
     -callback API (async style)
     -Promise API (async , await)
 
+Prisma
+that is framework for make ORM(Object Relational Mapping)
+
+Advantage:
+-You define your data once in a schema.prisma file, and Prisma:
+-Creates or updates the database for you (via migrations).
+-Generates an API (Prisma Client) that you can use to query the database.
+
+| Aspect               | Without Prisma           | With Prisma                     |
+| -------------------- | ------------------------ | ------------------------------- |
+| Query                | Write raw SQL            | Use Prisma Client API           |
+| Type Safety          | ❌ None                  | ✅ Full TypeScript support      |
+| Schema Definition    | In database only         | In `schema.prisma` file         |
+| Migrations           | Manual SQL scripts       | Auto-generated                  |
+| Relationships        | Must write joins         | Relations handled automatically |
+| Developer Experience | Harder, more error-prone | Easier, safer, faster           |
+
+return result = Array
