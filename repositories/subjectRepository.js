@@ -1,54 +1,46 @@
-const subjects = [
-    { "id": "INT 100", "name": "IT Fundamentals", "credits": 3 },
-    { "id": "INT 101", "name": "Programming Fundamentals", "credits": 3 },
-    { "id": "INT 102", "name": "Web Technology", "credits": 1 },
-    { "id": "INT 114", "name": "Discrete Mathematics", "credits": 3 },
-    { "id": "GEN 101", "name": "Physical Education", "credits": 1 },
-    { "id": "GEN 111", "name": "Man and Ethics of Living", "credits": 3 },
-    { "id": "LNG 120", "name": "General English", "credits": 3 },
-    { "id": "LNG 220", "name": "Academic English", "credits": 3 },
-    { "id": "INT 103", "name": "Advanced Programming", "credits": 3 },
-    { "id": "INT 104", "name": "User Experience Design", "credits": 3 },
-    { "id": "INT 105", "name": "Basic SQL", "credits": 1 },
-    { "id": "INT 107", "name": "Computing Platforms Technology", "credits": 3 },
-    { "id": "INT 200", "name": "Data Structures and Algorithms", "credits": 1 },
-    { "id": "INT 201", "name": "Client-Side Programming I", "credits": 2 },
-    { "id": "INT 202", "name": "Server-Side Programming I", "credits": 2 },
-    { "id": "INT 205", "name": "Database Management System", "credits": 3 },
-    { "id": "INT 207", "name": "Network I", "credits": 3 }
-];
+const pool = require("../config/pool");
 
-function getSubjects() { return subjects; }
-function getSubject(id) { return subjects.find(s => s.id === id); }
-function addSubject(subject) {
-    subjects.push(subject);
-    return getSubject(subject.id);
+async function findAll() {
+    const [rows] = await pool.query(
+        "SELECT id, subject_code, subject_title, credit FROM subjects");
+    return rows;
 }
-function updateSubject(id, subject) {
-    const idx = subjects.findIndex(s => s.id === id);
-    if (idx === -1) return null;
-    subject.id = id;
-    subjects[idx] = subject;
+async function findById(id) {
+    const [rows] = await pool.query(
+        "SELECT id, subject_code, subject_title, " +
+        "credit FROM subjects WHERE id = ?", [id]);
+    if (rows.length === 0) return null;
+    subject = {id : rows[0].id, code:rows[0].subject_code,
+        title:rows[0].subject_title, credit:rows[0].credit};
     return subject;
 }
-function patchSubject(id, partial) {
-    const idx = subjects.findIndex(s => s.id === id);
-    if (idx === -1) return false;
-    subjects[idx] = { ...subjects[idx], ...partial, id: subjects[idx].id };
-    return true;
+async function save(subject) {
+    const [result] = await pool.query(
+        "INSERT INTO subjects (subject_code, subject_title, credit) VALUES (?, ?, ?)"
+        ,
+        [subject.code, subject.title, subject.credit]
+    );
+    if (result.affectedRows === 0) return null;
+    return findById(result.insertId);
 }
-function removeSubject(id) {
-    const idx = subjects.findIndex(s => s.id === id);
-    if (idx === -1) return false;
-    subjects.splice(idx, 1);
-    return true;
+async function update(subject) {
+    const [result] = await pool.query(
+        "UPDATE subjects SET subject_code = ?, subject_title = ?, credit = ? WHERE id = ?"
+        ,
+        [subject.code, subject.title, subject.credit, subject.id]
+    );
+    if (result.affectedRows === 0) return null;
+    return findById(subject.id);
 }
-
+async function deleteById(id) {
+    const [result] = await pool.query("DELETE FROM subjects WHERE id = ?"
+        , [id]);
+    return result.affectedRows > 0;
+}
 module.exports = {
-    getSubjects,
-    getSubject,
-    addSubject,
-    updateSubject,
-    patchSubject,
-    removeSubject
-};
+    findAll,
+    findById,
+    save,
+    update,
+    deleteById
+}

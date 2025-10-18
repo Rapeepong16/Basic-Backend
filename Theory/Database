@@ -1,0 +1,20 @@
+Why use Mysql2 Library? [npm install mysql]
+
+npm = node package module
+
+Driver use in project is pure Node.js + native binding using MySQL protocol
+-library write in node.js
+-In the past driver made from C language, excusable file when use in work use by .exe
+-support Asynchronous(none-blocking I/O) using event loop(node.js)
+       - event loop is provide command on queue
+            -popular module is promise (async , await)
+-create connection (instance for connecting to DBMS)
+-Pool (connection pooling --> manage connection from client for protect db from client when try to request)
+Increase efficacy database connection by make some connection and reuse this not create new when have request
+Because when close connection that make trash
+-Query --> send SQL statement to DBMS
+-Result --> Array [row , fields]
+-Using
+    -callback API (async style)
+    -Promise API (async , await)
+
