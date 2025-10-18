@@ -7,3 +7,5 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+//routing for do something follow method
+//request parameter / path variable --> router.get('api/user/:id'), (req, res)

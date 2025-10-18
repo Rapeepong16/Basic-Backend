@@ -1,0 +1,35 @@
+⚙️ What is Middleware?
+
+Middleware is a function that sits between the incoming
+request (req) and the outgoing response (res).
+
+You can think of it like a “checkpoint” or “processing step”
+that every request passes through before reaching the final destination
+
+Client (sends request)
+      ↓
+[ Middleware 1 ] → does something → calls next()
+      ↓
+[ Middleware 2 ] → does something → calls next()
+      ↓
+[ Route handler (final response) ]
+      ↓
+Server sends response back to client
+
+JSON.stringify()
+When computer or web communicate that dont send 'object' or 'variable'
+like source code but it is send only string.The data was sent only text.
+
+Before:
+const user = {
+  name: "Bank",
+  age: 22
+};
+
+After:
+const jsonString = JSON.stringify(user);
+console.log(jsonString);
+
+Output:
+{"name":"Bank","age":22}
+
