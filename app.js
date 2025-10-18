@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var subjectsRouter = require('./routes/subjectRouter');
+var countriesRouter = require('./routes/country-route');
+var customersRouter = require('./routes/customer-route');
 
 var app = express();
 
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);// router = mapping request url (entry point)
 app.use('/subjects' , subjectsRouter);
+app.use('/countries', countriesRouter);
+app.use('/customers' , customersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,72 @@
+🌐 1️⃣ What is a REST API?
+REST stands for Representational State Transfer
+and API stands for Application Programming Interface
+
+So, a REST API is a set of rules that allows different systems (like your frontend and backend)
+to communicate over the web using HTTP (the same protocol your browser uses).
+
+🧠 Simple Definition:
+A REST API lets one program talk to another using standard HTTP methods (GET, POST, PUT, DELETE),
+and JSON is usually used to send and receive data.
+
+| Principle                     | Meaning                                                                 |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| **Stateless**                 | Each request is independent — server doesn’t remember previous requests |
+| **Client-Server**             | Client (frontend) and server (backend) are separate                     |
+| **Uniform Interface**         | All resources follow the same structure                                 |
+| **Resource-based URLs**       | URLs represent data, not actions                                        |
+| **Use HTTP methods properly** | GET = read, POST = create, PUT = update, DELETE = remove                |
+
+
+⚙️ How REST API Works
+
+REST APIs use HTTP methods to define what kind of action the client wants to perform.
+
+HTTP Method	        Meaning	        Example
+GET	                Read data	    /users → get list of users
+POST	            Create new data	/users → add a new user
+PUT	Update          existing data	/users/1 → update user with ID 1
+DELETE	            Delete data	    /users/1 → remove user with ID 1
+
+fix follow this method
+
+📦 Structure of a REST API URI
+https://domain.com/api/resource/:id/sub-resource
+| Part            | Meaning                    | Example                              |
+| --------------- | -------------------------- | ------------------------------------ |
+| `https://`      | Protocol                   | how to connect (HTTP/HTTPS)          |
+| `domain.com`    | Server name or IP          | your API server                      |
+| `/api`          | (optional) API root path   | used to group endpoints              | Application Context
+| `/resource`     | The resource (noun)        | `/users`, `/posts`, `/products`      |
+| `/:id`          | Specific item (identifier) | `/users/1` means user with id=1      |
+| `/sub-resource` | Related data               | `/users/1/orders` → orders of user 1 |
+
+DTO (Data Transfer Object)
+It is a plain object used to transfer data between different layers of an application
+(like from client → server → database), without exposing internal implementation details.
+    -Think of it as a “data carrier”.
+    -It usually contains only the properties that are needed for a specific operation.
+    (Service or Controller must made DTO --> change format for frontend)
+
+Prisma Pagination
+It should provide in database level because We Should not send big data through network
+Pagination is the process of splitting large data into smaller chunks (pages) so you don’t load everything at once.
+    -Example: Showing 10 users per page instead of all 1000 users.
+    -Improves performance and user experience.
+
+example:
+app.get('/users', async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const perPage = parseInt(req.query.perPage) || 10;
+
+  const users = await prisma.user.findMany({
+    skip: (page - 1) * perPage,
+    take: perPage,
+    orderBy: { id: 'asc' },
+  });
+
+  res.json({ page, perPage, users });
+});
+
+
+
